@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Sqong" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application",    "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind",       "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-50 min-h-screen flex flex-col">
+    
+    <nav class="bg-indigo-600 text-white shadow-md">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        <%= link_to "🏓 Sqong", root_path, class: "text-2xl font-extrabold text-white" %>
+        <div class="space-x-4">
+          <%= link_to "Home", root_path, class: "hover:underline" %>
+          <% if user_signed_in? %>
+            <%= link_to "Play", game_path, class: "hover:underline" %>
+            <%= link_to "Leaderboard", scores_path, class: "hover:underline" %>
+            <%= link_to "Profile", edit_user_registration_path, class: "hover:underline" %>
+            <%= button_to "Sign Out",
+              destroy_user_session_path,
+              method: :delete,
+              form: { class: "inline" },
+              class: "hover:underline bg-transparent border-0 p-0 text-white" %>
+          <% else %>
+            <%= link_to "Sign In", new_user_session_path, class: "hover:underline" %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "hover:underline" %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+  
+    <div class="max-w-4xl mx-auto w-full mt-4 px-4">
+      <% flash.each do |type, msg| %>
+        <% color_classes = case type
+           when "notice" then "bg-green-100 border-green-400 text-green-800"
+           when "alert"  then "bg-red-100   border-red-400   text-red-800"
+           else                   "bg-blue-100  border-blue-400  text-blue-800"
+           end %>
+        <div class="<%= color_classes %> border-l-4 p-4 mb-4 rounded shadow-sm">
+          <p><%= msg %></p>
+        </div>
+      <% end %>
+    </div>
+
+
+    <main class="flex-1 max-w-4xl mx-auto w-full px-4 py-6">
+      <%= yield %>
+    </main>
+  </body>
+</html>

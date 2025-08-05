@@ -1,0 +1,42 @@
+<%# app/views/scores/index.html.erb %>
+
+<h1 class="text-4xl font-extrabold text-center text-indigo-600 mb-6">
+  Leaderboard
+</h1>
+
+<div class="max-w-lg mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
+
+  <div class="bg-gradient-to-r from-purple-600 to-indigo-500 p-4">
+    <h2 class="text-xl font-semibold text-white text-center">
+      Top 3 Players
+    </h2>
+  </div>
+
+  <ul class="divide-y divide-gray-200">
+    <% @scores.each_with_index do |score, i| %>
+      <% medal = case i
+                when 0 then "🥇"
+                when 1 then "🥈"
+                when 2 then "🥉"
+                else "#{i+1}."
+                end %>
+      <li class="flex items-center justify-between p-4 hover:bg-gray-50 transition">
+        <span class="flex items-center space-x-2">
+          <span class="text-2xl"><%= medal %></span>
+          <span class="text-lg font-medium text-gray-800">
+            <%= score.user.username %>
+          </span>
+        </span>
+        <span class="text-lg font-bold text-indigo-600">
+          <%= score.value %>
+        </span>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="text-center mt-8">
+  <%= link_to "Back to Game", game_path,
+        class: "px-6 py-3 bg-gradient-to-r from-blue-500 to-green-400
+               text-white rounded-full shadow hover:opacity-90 transition" %>
+</div>
