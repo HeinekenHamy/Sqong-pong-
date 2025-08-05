@@ -12,4 +12,7 @@ LINK: https://sqong-pong-6fb7391c8389.herokuapp.com/
 ## Screenshots
 
 ![Sqong on desktop](screenshots/screenshot1.png)
-![Sqong on mobile](screenshots/screenshot2.jpeg)
+
+<div style="text-align: center;">
+  <img src="screenshots/screenshot2.jpeg" alt="Sqong on mobile" style="width: 300px; height: auto; display: block; margin: 0 auto;">
+</div>
