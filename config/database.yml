@@ -1,22 +1,22 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("PG_USERNAME") { "keerthan" } %>
-  password: <%= ENV.fetch("PG_PASSWORD") { "" } %>
-  host:     <%= ENV.fetch("PG_HOST") { "localhost" } %>
+  pool:     <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
   database: pong_app_development
+  username: <%= ENV.fetch("PG_USERNAME") { "keerthan" } %>
+  password: <%= ENV.fetch("PG_PASSWORD") { "" } %>
+  host:     <%= ENV.fetch("PG_HOST")     { "localhost" } %>
 
 test:
   <<: *default
   database: pong_app_test
+  username: <%= ENV.fetch("PG_USERNAME") { "keerthan" } %>
+  password: <%= ENV.fetch("PG_PASSWORD") { "" } %>
+  host:     <%= ENV.fetch("PG_HOST")     { "localhost" } %>
 
 production:
   <<: *default
-  database: pong_app_production
-  username: <%= ENV['PG_PROD_USERNAME'] %>
-  password: <%= ENV['PG_PROD_PASSWORD'] %>
-  host:     <%= ENV['PG_PROD_HOST'] %>
+  url: <%= ENV['DATABASE_URL'] %>
