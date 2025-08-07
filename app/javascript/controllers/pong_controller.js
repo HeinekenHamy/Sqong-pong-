@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["canvas", "score"];
-  static values  = { submitUrl: String };
+  static values  = { submitUrl: String, guest: Boolean };
 
   connect() {
     this.resizeCanvas();
@@ -119,17 +119,17 @@ export default class extends Controller {
   endGame() {
     this.gameOver = true;
     cancelAnimationFrame(this.frame);
-
+    
     fetch(this.submitUrlValue, {
       method: "POST",
       headers: {
-        "Content-Type":    "application/json",
-        "X-CSRF-Token":     document.querySelector("[name='csrf-token']").content
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector("[name='csrf-token']").content
       },
       body: JSON.stringify({ value: this.score })
     })
     .then(() => {
-      alert(`Game over! Your score of ${this.score} was saved.`);
+      alert(`Game over! Your score is ${this.score}.`);
       window.location.href = "/scores";
     });
   }
